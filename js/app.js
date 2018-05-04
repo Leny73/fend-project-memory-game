@@ -31,6 +31,8 @@ let listArray = [
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 
+
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
@@ -45,7 +47,14 @@ function shuffle(array) {
     return array;
 }
 
-let shuffledDeck = shuffle(listArray);
+let shuffledCards = shuffle(listArray);
+for(let i = 0;i<shuffledCards.length;i++){
+    let cardContainer = document.createElement('li');
+    newCard = cardContainer.textContent(shuffledCards[i].innerHTML);
+    const cardSelector = document.querySelector(shuffledCards[i]);
+    cardSelector.appendChild(newCard);
+
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
