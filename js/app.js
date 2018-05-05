@@ -49,7 +49,7 @@ function shuffle(array) {
 
 let shuffledCards = shuffle(listArray);
 /**Shuffle the cards */
-$(".deck").empty();
+$(".deck").children().remove();
 /**Removes all the cards of the deck */
 for(let i = 0;i<shuffledCards.length;i++){
     let cardContainer = document.createElement("li");
@@ -74,4 +74,10 @@ for(let i = 0;i<shuffledCards.length;i++){
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
- 
+$(".card").on('click',function(event){
+    event.preventDefault();
+    show($(this));
+});
+function show(evt){
+    evt.addClass("open show");
+}
