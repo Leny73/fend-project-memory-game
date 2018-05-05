@@ -48,13 +48,21 @@ function shuffle(array) {
 }
 
 let shuffledCards = shuffle(listArray);
+/**Shuffle the cards */
+$(".deck").empty();
+/**Removes all the cards of the deck */
 for(let i = 0;i<shuffledCards.length;i++){
-    let cardContainer = document.createElement('li');
-    newCard = cardContainer.textContent(shuffledCards[i].innerHTML);
-    const cardSelector = document.querySelector(shuffledCards[i]);
-    cardSelector.appendChild(newCard);
-
+    let cardContainer = document.createElement("li");
+    $(cardContainer).addClass("card");
+    let cardType = document.createElement("i");
+    $(cardType).addClass(shuffledCards[i]);
+    cardContainer.appendChild(cardType);
+    const cardSelector = document.querySelector(".deck");
+    cardSelector.appendChild(cardContainer);
 }
+/**Adding the shuffled cards to the page */
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -65,3 +73,5 @@ for(let i = 0;i<shuffledCards.length;i++){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+ 
