@@ -20,6 +20,7 @@ let listArray = [
     "fa fa-bicycle",
     "fa fa-bomb"
   ];
+  let openList = [];
 
 /*
  * Display the cards on the page
@@ -77,7 +78,20 @@ for(let i = 0;i<shuffledCards.length;i++){
 $(".card").on('click',function(event){
     event.preventDefault();
     show($(this));
+    addToListOfCards($(this));
+    
 });
+
 function show(evt){
     evt.addClass("open show");
+}
+
+function match(evt){
+    evt.addClass("match");
+}
+
+
+function addToListOfCards(evt){
+    openList.push(evt);
+    console.log("added a card to the list")
 }
