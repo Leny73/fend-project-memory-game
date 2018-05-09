@@ -78,6 +78,12 @@ for(let i = 0;i<shuffledCards.length;i++){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+$(".restart").on('click',function(evt){
+    evt.preventDefault();
+    shuffleCards();
+    document.getElementById("moves").innerHTML = 0 + " Moves";
+});
+
 shuffleCards();
 $(".card").on('click',function(event){
     event.preventDefault();
@@ -85,7 +91,7 @@ $(".card").on('click',function(event){
     addToListOfCards($(this));
     compare($(this));
     move($(this));
-
+    display();
 });
 /**Displays the card symbol */
 function show(evt){
@@ -99,7 +105,6 @@ function match(evt){
 /** hides the pictures with a set delay */
 function hide(evt){
     setTimeout(function(){
-        console.log("no match");
         evt.delay(10000).removeClass("open show");
     },1000);
 }
@@ -116,6 +121,7 @@ function compare(evt){
         if(firstMatch === secondMatch){
             match(openList[0]);
             match(openList[1]);
+            matches++;
             openList = [];
         }else {
             hide(openList[0]);
@@ -131,5 +137,15 @@ function move(evt){
         document.getElementById("moves").innerHTML = moves + " Move";
     }else {
         document.getElementById("moves").innerHTML = moves + " Moves";
+    }
+}
+function display(){
+    let modalContainer = document.createElement("div");
+    modalContainer.setAttribute("id","myModal");
+    $(modalContainer).addClass("modal");
+    $("#modalMessage").appendChild(modalContainer);
+    if(matches ===8){
+        console.log('game finishes');
+        modalCointainer.innerHTML="Congratulations you've finished the game with " + moves + "moves";
     }
 }
