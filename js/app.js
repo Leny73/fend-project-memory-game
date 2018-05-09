@@ -82,6 +82,7 @@ $(".restart").on('click',function(evt){
     evt.preventDefault();
     shuffleCards();
     document.getElementById("moves").innerHTML = 0 + " Moves";
+    document.getElementById("myModal").innerHtml = "";
 });
 
 shuffleCards();
@@ -122,6 +123,7 @@ function compare(evt){
             match(openList[0]);
             match(openList[1]);
             matches++;
+            console.log(matches);
             openList = [];
         }else {
             hide(openList[0]);
@@ -143,9 +145,10 @@ function display(){
     let modalContainer = document.createElement("div");
     modalContainer.setAttribute("id","myModal");
     $(modalContainer).addClass("modal");
-    $("#modalMessage").appendChild(modalContainer);
+    const selector = document.querySelector("#modalMessage");
+    selector.appendChild(modalContainer);
     if(matches ===8){
         console.log('game finishes');
-        modalCointainer.innerHTML="Congratulations you've finished the game with " + moves + "moves";
+        document.getElementById("myModal").innerHTML="Congratulations you've finished the game with " + moves + "moves";
     }
 }
