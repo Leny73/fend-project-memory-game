@@ -83,7 +83,9 @@ $(".card").on('click',function(event){
     event.preventDefault();
     show($(this));
     addToListOfCards($(this));
-    
+    compare($(this));
+    move($(this));
+
 });
 /**Displays the card symbol */
 function show(evt){
@@ -94,13 +96,21 @@ function match(evt){
     evt.toggleClass("open show");
     evt.addClass("match");
 }
+/** hides the pictures with a set delay */
 function hide(evt){
-    evt.toggleClass("open show");
+    setTimeout(function(){
+        console.log("no match");
+        evt.delay(10000).removeClass("open show");
+    },1000);
 }
-
+/**Adss the cards to an array  */
 function addToListOfCards(evt){
     openList.push(evt); 
+}
+/**Compares the cards to check if they're matching */
+function compare(evt){
     if(openList.length === 2) {
+        moves++;
         firstMatch = openList[0].children().attr("class");
         secondMatch = openList[1].children().attr("class");
         if(firstMatch === secondMatch){
@@ -108,9 +118,18 @@ function addToListOfCards(evt){
             match(openList[1]);
             openList = [];
         }else {
-            openList[0].fadeOut();
-            openList[1].fadeOut();
+            hide(openList[0]);
+            hide(openList[1]);
             openList = []
+
         }
    }  
+}
+/** Displays the number of moves */
+function move(evt){
+    if(moves ===1 ){
+        document.getElementById("moves").innerHTML = moves + " Move";
+    }else {
+        document.getElementById("moves").innerHTML = moves + " Moves";
+    }
 }
