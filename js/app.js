@@ -20,8 +20,10 @@ let listArray = [
     "fa fa-bicycle",
     "fa fa-bomb"
   ];
+  let movesList = [];
   let openList = [];
-
+  let matches = 0;
+  let moves = 0;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -48,12 +50,14 @@ function shuffle(array) {
     return array;
 }
 
+function shuffleCards(){
 let shuffledCards = shuffle(listArray);
-/**Shuffle the cards */
+
 $(".deck").children().remove();
-/**Removes all the cards of the deck */
+
 for(let i = 0;i<shuffledCards.length;i++){
     let cardContainer = document.createElement("li");
+    cardContainer.setAttribute("id",i);
     $(cardContainer).addClass("card");
     let cardType = document.createElement("i");
     $(cardType).addClass(shuffledCards[i]);
@@ -62,7 +66,7 @@ for(let i = 0;i<shuffledCards.length;i++){
     cardSelector.appendChild(cardContainer);
 }
 /**Adding the shuffled cards to the page */
-
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -74,24 +78,39 @@ for(let i = 0;i<shuffledCards.length;i++){
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
+shuffleCards();
 $(".card").on('click',function(event){
     event.preventDefault();
     show($(this));
     addToListOfCards($(this));
     
 });
-
+/**Displays the card symbol */
 function show(evt){
     evt.addClass("open show");
 }
-
-function match(evt){
+/**toggles the classes and puts a match class on the card*/
+function match(evt){ 
+    evt.toggleClass("open show");
     evt.addClass("match");
 }
-
+function hide(evt){
+    evt.toggleClass("open show");
+}
 
 function addToListOfCards(evt){
-    openList.push(evt);
-    console.log("added a card to the list")
+    openList.push(evt); 
+    if(openList.length === 2) {
+        firstMatch = openList[0].children().attr("class");
+        secondMatch = openList[1].children().attr("class");
+        if(firstMatch === secondMatch){
+            match(openList[0]);
+            match(openList[1]);
+            openList = [];
+        }else {
+            openList[0].fadeOut();
+            openList[1].fadeOut();
+            openList = []
+        }
+   }  
 }
